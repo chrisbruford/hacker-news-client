@@ -4,6 +4,14 @@ export class HN {
             let xhr = new XMLHttpRequest();
             xhr.open('GET', 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty');
 
+            xhr.onerror = err => {
+                reject(err);
+            }
+
+            xhr.onabort = err => {
+                reject(err);
+            }
+
             xhr.onload = evt => {
                 if (xhr.status == 200 && xhr.responseText) {
                     try {
@@ -13,7 +21,7 @@ export class HN {
                         reject({ error: e, data: xhr.responseText });
                     }
                 } else {
-                    reject(`Unable to retrieve data: \n server code: ${xhr.status} \n responseText: ${xhr.responseText}`);
+                    reject(`Unable to retrieve data: \n server code: ${xhr.status} \n responseText: ${xhr.statusText}`);
                 }
             }
 
@@ -26,6 +34,14 @@ export class HN {
             let xhr = new XMLHttpRequest();
             xhr.open('GET', `https://hacker-news.firebaseio.com/v0/item/${itemID}.json?print=pretty`);
 
+            xhr.onerror = err => {
+                reject(err);
+            }
+
+            xhr.onabort = err => {
+                reject(err);
+            }
+
             xhr.onload = evt => {
                 if (xhr.status == 200 && xhr.responseText) {
                     try {
@@ -35,7 +51,7 @@ export class HN {
                         reject({ error: e, data: xhr.responseText });
                     }
                 } else {
-                    reject(`Unable to retrieve data: \n server code: ${xhr.status} \n responseText: ${xhr.responseText}`);
+                    reject(`Unable to retrieve data: \n server code: ${xhr.status} \n responseText: ${xhr.statusText}`);
                 }
             }
 
